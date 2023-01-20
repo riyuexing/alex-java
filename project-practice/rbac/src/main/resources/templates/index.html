@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!--导入thymeleaf的名称空间-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<!--th:text 为 Thymeleaf 属性，用于获取指定属性的值-->
+<ul>
+    <!-- 首页让所有人都能看到，就直接渲染 -->
+    <li>首页</li>
+    <!-- 根据权限数据渲染对应的菜单 -->
+    <li th:each="i : ${menus}">
+<!--        [[${menuMap.get(i)}]]-->
+        [[${i}]]
+    </li>
+</ul>
+</body>
+</html>
