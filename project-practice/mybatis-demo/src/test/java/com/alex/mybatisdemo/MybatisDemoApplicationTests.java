@@ -26,7 +26,7 @@ class MybatisDemoApplicationTests {
     void contextLoads() {
     }
 
-    private Long currentId=8L;
+    private Long currentId=7L;
 
     /**
      * 新增商品 *
