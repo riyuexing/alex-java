@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 本映射文件对应GoodsDao接口 -->
+<mapper namespace="com.alex.mybatisdemo.mapper.GoodsDao">
+    <!-- 对应GoodsDao中的insert方法 -->
+    <insert id="insert" parameterType="com.alex.mybatisdemo.entity.GoodsDo">
+        insert into goods (name,price,pic) values (#{name},#{price},#{pic})
+    </insert>
+</mapper>
