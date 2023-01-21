@@ -21,9 +21,9 @@ class MybatisDemoApplicationTests {
     @Test
     void test_01(){
         GoodsDo goods = new GoodsDo();
-        goods.setName("手机");
-        goods.setPic("phone.jpg");
-        goods.setPrice("2000");
+        goods.setName("手机1");
+        goods.setPic("phone1.jpg");
+        goods.setPrice("3000");
         int count = goodsDao.insert(goods);
         assertEquals(1,count);
 
