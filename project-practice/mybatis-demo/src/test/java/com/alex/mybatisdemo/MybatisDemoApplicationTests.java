@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -24,6 +26,7 @@ class MybatisDemoApplicationTests {
         goods.setName("手机1");
         goods.setPic("phone1.jpg");
         goods.setPrice("3000");
+        goods.setCreateTime(new Date());
         int count = goodsDao.insert(goods);
         assertEquals(1,count);
 

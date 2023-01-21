@@ -1,5 +1,7 @@
 package com.alex.mybatisdemo.entity;
 
+import java.util.Date;
+
 /**
  * @author alex
  * @version 1.0
@@ -11,6 +13,17 @@ public class GoodsDo {
     private String name;
     private String price;
     private String pic;
+    private Date createTime;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+
 
     public Long getId() {
         return id;

@@ -4,6 +4,6 @@
 <mapper namespace="com.alex.mybatisdemo.mapper.GoodsDao">
     <!-- 对应GoodsDao中的insert方法 -->
     <insert id="insert" parameterType="com.alex.mybatisdemo.entity.GoodsDo">
-        insert into goods (name,price,pic) values (#{name},#{price},#{pic})
+        insert into goods (name,price,pic,create_time) values (#{name},#{price},#{pic}, #{createTime})
     </insert>
 </mapper>
