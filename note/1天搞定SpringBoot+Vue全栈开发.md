@@ -1254,6 +1254,53 @@ private Integer id;
 
 ![image-20230203083519263](assets/image-20230203083519263.png)
 
+
+
+查询订单报错：
+
+```
+### Error querying database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order where uid = 1' at line 1
+
+```
+
+原因: UserMapper.java 中 order与SQL关键字 order冲突
+
+```java
+public interface OrderMapper extends BaseMapper<Order> {
+
+    @Select("select * from order where uid = #{uid}")
+    List<Order> selectByUid(int uid);
+
+    // 查询所有的订单，同时查询订单的用户
+    @Select("select * from order")
+    @Results({
+            @Result(column = "id",property = "id"),
+            @Result(column = "ordertime",property = "ordertime"),
+            @Result(column = "total",property = "total"),
+            @Result(column = "uid",property = "user", javaType = User.class,
+                one=@One(select = "com.alex.mpdemo.mapper.UserMapper.selectById"))
+
+    })
+    List<Order> selectAllOrderAndUser();
+}
+```
+
+更改为：
+
+```java
+@Select("select * from `order` where uid = #{uid}")
+
+@Select("select * from `order`")
+```
+
+![image-20230205101839722](assets/image-20230205101839722.png)
+
+
+
+
+
+
+
 ### 7.2 分页查询
 
 编写配置文件

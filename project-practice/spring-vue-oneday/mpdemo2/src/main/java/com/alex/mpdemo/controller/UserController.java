@@ -2,9 +2,12 @@ package com.alex.mpdemo.controller;
 
 import com.alex.mpdemo.entity.User;
 import com.alex.mpdemo.mapper.UserMapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,54 +23,27 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("/user")
-    public List<User> query(){
-//        List<User> userList =  userMapper.findAll();
-        List<User> userList = userMapper.selectList(null);
-        System.out.println(userList);
-        return userList;
+    // 一对多查询
+    @GetMapping("/user/findAll")
+    public List<User> find(){
+        return userMapper.selectAllUserAndOrders();
     }
 
-    @GetMapping("/user/{id}")
-    public User queryById(@PathVariable int id){
-//        User user = userMapper.findById(id);
-        User user = userMapper.selectById(id);
-        return user;
+    // 条件查询
+    @GetMapping("/user/find")
+    public List<User> findByCond(){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username","张三");
+        return userMapper.selectList(queryWrapper);
     }
 
-    @PostMapping("/user")
-    public String save(@RequestBody User user){
-//        int i = userMapper.add(user);
-        int i = userMapper.insert(user);
-        if(i>0){
-            return "插入成功";
-        }else{
-            return "插入失败";
-        }
-
+    // 分页查询
+    @GetMapping("/user/findByPage")
+    public IPage findByPage(){
+        // 设置起始值及每页条数
+        Page<User> page = new Page<>(0,2);
+        IPage iPage = userMapper.selectPage(page,null);
+        return iPage;
     }
 
-    // delete localhost:8080/user?id=4
-    @DeleteMapping("/user")
-    public String deleteByUserId(@RequestBody int id){
-        int i = userMapper.deleteById(id);
-        if(i>0){
-            return "删除成功";
-        }else{
-            return "删除失败";
-        }
-    }
-
-    @PutMapping("/user")
-    public String update(@RequestBody User user){
-//        int i = userMapper.update(user);
-        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.eq("id",user.getId());
-        int i = userMapper.update(user,updateWrapper);
-        if(i>0){
-            return "更新成功";
-        }else{
-            return "更新失败";
-        }
-    }
 }

@@ -1,7 +1,11 @@
 package com.alex.mpdemo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.util.List;
 
 /**
  * @author alex
@@ -9,6 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
  * @description: TODO
  * @date 2023/2/4 22:23
  */
+@TableName("user")
 public class User {
 
     @TableId(value = "id",type = IdType.AUTO)
@@ -18,6 +23,18 @@ public class User {
     private String password;
     private String phone;
     private String mail;
+
+    // 用户的所有订单
+    @TableField(exist = false)
+    private List<Order> orders;
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public Integer getId() {
         return id;

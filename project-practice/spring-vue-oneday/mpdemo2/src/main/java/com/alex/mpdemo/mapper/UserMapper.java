@@ -15,45 +15,22 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-//
-//    /**
-//     * 增加用户 *
-//     * @param user
-//     * @return
-//     */
-//    @Insert("insert into user values(#{id}, #{username}, #{password}, #{phone}, #{mail})")
-//    int add(User user);
-//
-//    /**
-//     * 更新用户信息 *
-//     * @param user
-//     * @return
-//     */
-//    @Update("update user set username=#{username}, password=#{password}, phone=#{phone}, mail=#{mail} where id=#{id}")
-//    int update(User user);
-//
-//
-//    /**
-//     * 删除指定id的用户*
-//     * @param id
-//     * @return
-//     */
-//    @Delete("delete from user where id=#{id}")
-//    int deleteById(int id);
-//
-//    /**
-//     * 根据id查询用户 *
-//     * @param id
-//     * @return
-//     */
-//    @Select("select * from user where id=#{id}")
-//    User findById(int id);
-//
-//    /**
-//     * 查询所有用户 *
-//     * @return
-//     */
-//    @Transactional(rollbackFor = Exception.class)
-//    @Select("select * from user")
-//    List<User> findAll();
+
+    @Select("select * from user where id=#{id}")
+    User selectById(int id);
+
+    // 查询用户及其所有的订单
+    @Select("select * from user")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "username", property = "username"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "phone", property = "phone"),
+            @Result(column = "mail", property = "mail"),
+            @Result(column = "id",property = "orders",javaType = List.class,
+                many = @Many(select = "com.alex.mpdemo.mapper.OrderMapper.selectByUid")
+            )
+
+    })
+    List<User> selectAllUserAndOrders();
 }
